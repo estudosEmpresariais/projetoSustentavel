@@ -1,0 +1,154 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Services - EmpreendeX</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
+    <link rel="stylesheet" href="{% static 'assets/css/styles.min.css' %}">
+</head>
+
+<body style="background: var(--bs-primary);">
+    <nav class="navbar navbar-expand-xl sticky-top py-3 navbar-dark" id="mainNav" style="background: var(--bs-emphasis-color);">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="/"><img src="{% static 'assets/img/logos_semana_academica.png' %}" width="271" height="84"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="/index.html">Empreendedores</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/services.html">Produto/Serviços</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contacts.html">Contato</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pag_detalhe.html">Sobre</a></li>
+                </ul><a class="btn btn-primary shadow" role="button" href="login.html" style="padding: 5px 32px;margin: 20px;color: var(--bs-dark);">Login</a><a class="btn btn-primary shadow" role="button" href="registro.html" style="padding: 5px 32px;background: var(--bs-success);color: var(--bs-dark);">Cadastre-se</a>
+            </div>
+        </div>
+    </nav>
+    <section class="d-xl-flex justify-content-xl-center py-5">
+        <div class="container">
+            <div class="border rounded d-sm-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-xl-center align-items-xl-center pb-lg-0 mb-lg-0 pe-lg-0 min-vh-25" style="height: 236px;background: #ffffff;">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <h1 class="text-center" style="color: var(--bs-primary);">Descubra novos empreendedores locais com apenas um clique&nbsp;</h1>
+                        <form method="get">
+                            <div class="input-group w-auto"><select class="form-select w-" style="background: var(--bs-primary);color: var(--bs-light-bg-subtle);">
+                                    <optgroup label="Categoria">
+                                        <option value="12" selected="">Varejista</option>
+                                        <option value="13">Farmaceutica</option>
+                                        <option value="14">Papelaria</option>
+                                    </optgroup>
+                                </select><input class="form-control" type="text" placeholder="Procurar por bairro" name="search_bairro"><button class="btn btn-primary" type="submit">Buscar</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 40px;">
+                <div class="col-12 col-md-4">
+                    <div>
+                        <h6>Assaí</h6>
+                    </div>
+                    <div class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center justify-content-xl-center div-com-botao" style="background: #ffffff;height: 222px;"><img class="img-fluid" src="{% static 'assets/img/logo_assai.png' %}" width="220" height="158" style="display: block;border-style: none;"><a class="btn btn-primary border rounded-0 d-xl-flex botao-no-canto" role="button" href="pag_detalhe.html?id=">Ver detalhes</a></div>
+                    <p class="mb-1">Varejista</p>
+                    <p class="mb-1">(86) 9 3033-3030</p>
+                    <p class="mb-1">R. Gonçalo Nunes, 1000 - São Raimundo, Teresina - PI, 64075-080</p>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div>
+                        <h6>Pague Menos</h6>
+                    </div>
+                    <div class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center justify-content-xl-center div-com-botao" style="background: #ffffff;height: 222px;"><img class="img-fluid pb-lg-5" src="{% static 'assets/img/logo_paguemenos.png' %}" width="220" height="158" style="display: block;border-style: none;"><a class="btn btn-primary border rounded-0 d-xl-flex botao-no-canto" role="button" href="pag_detalhe.html?id=">Ver detalhes</a></div>
+                    <p class="mb-1">Farmaceutica</p>
+                    <p class="mb-1">(86) 9 2222-8783</p>
+                    <p class="mb-1">R. Benedito Feitosa Cardoso, 3330 - Itararé, Teresina - PI, 64078-165</p>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div>
+                        <h6>J.Monte</h6>
+                    </div>
+                    <div class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center justify-content-xl-center div-com-botao" style="background: #ffffff;height: 222px;"><img class="img-fluid" src="{% static 'assets/img/logo_jmonte.png' %}" width="220" height="158" style="display: block;border-style: none;"><a class="btn btn-primary border rounded-0 d-xl-flex botao-no-canto" role="button" href="pag_detalhe.html?id=">Ver detalhes</a></div>
+                    <p class="mb-1">Loja de material de construção</p>
+                    <p class="mb-1">(86) 9 3033-3030</p>
+                    <p class="mb-1">Quadra A, 13 - Itararé, Teresina - PI, 64077-265</p>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 40px;">
+                <div class="col-12 col-md-4">
+                    <div>
+                        <h6>Garagem</h6>
+                    </div>
+                    <div class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center justify-content-xl-center div-com-botao" style="background: #ffffff;height: 222px;position: relative;"><img class="img-fluid" src="{% static 'assets/img/logo_garagem.png' %}" width="220" height="158" style="display: block;border-style: none;position: relative;"><a class="btn btn-primary border rounded-0 d-xl-flex botao-no-canto" role="button" href="pag_detalhe.html?id=">Ver detalhes</a></div>
+                    <p class="mb-1">Pizzaria</p>
+                    <p class="mb-1">(86) 9 3033-3030</p>
+                    <p class="mb-1">Av. José Francisco de Almeida Neto - Itararé, Teresina - PI</p>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div>
+                        <h6>Puro Açaí</h6>
+                    </div>
+                    <div class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center justify-content-xl-center div-com-botao" style="background: #ffffff;height: 222px;"><img class="img-fluid pb-lg-5" src="{% static 'assets/img/logo_puroacai.png' %}" width="220" height="158" style="display: block;border-style: none;"><a class="btn btn-primary border rounded-0 d-xl-flex botao-no-canto" role="button" href="pag_detalhe.html?id=">Ver detalhes</a></div>
+                    <p class="mb-1">Açaíteria</p>
+                    <p class="mb-1">(86) 9 2222-8783</p>
+                    <p class="mb-1">R. Benedito Feitosa Cardoso, 3330 - Itararé, Teresina - PI, 64078-165</p>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div>
+                        <h6>Papelaria do Estudante</h6>
+                    </div>
+                    <div class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center justify-content-xl-center div-com-botao" style="background: #ffffff;height: 222px;"><img class="img-fluid" src="{% static 'assets/img/logo_papelaria.png' %}" width="220" height="158" style="display: block;border-style: none;"><a class="btn btn-primary border rounded-0 d-xl-flex botao-no-canto" role="button" href="pag_detalhe.html?id=">Ver detalhes</a></div>
+                    <p class="mb-1">Papelaria</p>
+                    <p class="mb-1">(86) 9 3033-3030</p>
+                    <p class="mb-1">Av. José Francisco de Almeida Neto - Itararé, Teresina - PI, 64078-271</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="bg-dark">
+        <div class="container py-4 py-lg-5">
+            <div class="row justify-content-center">
+                <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
+                    <h3 class="fs-6 fw-bold">Serviços</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Empreendedores próximos</a></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
+                    <h3 class="fs-6 fw-bold">Sobre</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Companhia</a></li>
+                        <li><a href="#">Time</a></li>
+                        <li><a href="#">Legado</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
+                    <h3 class="fs-6 fw-bold">Carreira</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Vagas abertas</a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#">Benefícios</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 text-center text-lg-start d-flex flex-column align-items-center order-first align-items-lg-start order-lg-last">
+                    <div class="fw-bold d-flex align-items-center mb-2"><img src="{% static 'assets/img/logos_semana_academica.png' %}" width="207" height="64"></div>
+                    <p class="text-muted">Todos os direitos reservados</p>
+                </div>
+            </div>
+            <hr>
+            <div class="text-muted d-flex justify-content-between align-items-center pt-3">
+                <p class="mb-0">Copyright © 2025 EmpreendeX</p>
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item"></li>
+                    <li class="list-inline-item"></li>
+                    <li class="list-inline-item"></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/script.min.js' %}"></script>
+</body>
+
+</html>
