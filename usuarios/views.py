@@ -17,6 +17,8 @@ from .models import Usuario
 from cadastros.models import Pessoa, Cliente, Empreendedor, Endereco
 from django.urls import reverse
 from django.db.models.aggregates import Avg, Sum, Count, Min, Max
+from django.views.decorators.csrf import csrf_exempt
+
 
 # Create your views here.
 
@@ -24,6 +26,7 @@ class servicos(ListView):
 	model = Usuario
 	template_name = 'services.html'
 
+@csrf_exempt
 def logar(request):
 	for user in Usuario.objects.filter(is_active=True).values('username', 'senha', 'id'):
 		print(f'{user['senha'] }- {request.POST.get('senha')}')
@@ -33,7 +36,7 @@ def logar(request):
 			query = urlencode({'id': user['id'], 'usuario': user['username'], 'status': status})
 			url = 'usuarios:servicos' + '?' + query
 			return redirect('usuarios:servicos', user['id'])
-	print('não achou')
+	
 	mensagem = f"Usuário ou Senha inválidos!"
 	status = "error"
 	query = urlencode({'status': status, 'mensagem': mensagem})
@@ -56,7 +59,7 @@ def login(request):
 def registro(request):
 	return render(request, 'registro.html')
 
-
+@csrf_exempt
 def create_user(request):
 	senha = request.POST.get('senha')
 	usuario = request.POST.get('usuario')
@@ -100,3 +103,5 @@ def create_user(request):
 	return redirect(url)
 		#object = User.objects.create(nome=usuario, senha=senha, tipo_usuario='C', username=usuario, password=senha, is_active=True)
 
+def sobre(request):
+	return render(request, 'sobre.html')

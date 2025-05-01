@@ -15,5 +15,6 @@ urlpatterns = [
 	path('create/', views.create_user, name='create_user'),
 	path('servicos/<int:id>', views.servicos.as_view(), name='servicos'),
 	path('logar/', views.logar, name='logar'),
+	path('sobre/', views.sobre, name='sobre'),
 ]
 
