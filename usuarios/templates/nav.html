@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>EmpreendeX</title>
+    <link rel="stylesheet" href="{% static '/assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
+    <link rel="stylesheet" href="{% static '/assets/css/styles.min.css' %}">
+</head>
+
+<body style="background: white;">
+    <nav class="navbar navbar-expand-xl sticky-top py-3 navbar-dark" id="mainNav" style="background: var(--bs-emphasis-color);">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="index.html"><img src="{% static 'assets/img/logos_semana_academica.png' %}" width="271" height="84"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link active" href="/index.html">Empreendedores</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/services.html">Produto/Serviços</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contacts.html">Contato</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pag_detalhe.html">Sobre</a></li>
+                </ul><a class="btn btn-primary shadow" role="button" href="{% url 'usuarios:login' %}" style="padding: 5px 32px;margin: 20px;color: var(--bs-dark);">Login</a><a class="btn btn-primary shadow" role="button" href="{% url 'usuarios:registro' %}" style="padding: 5px 32px;background: var(--bs-success);color: var(--bs-dark);">Cadastre-se</a>
+            </div>
+        </div>
+    </nav>
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/script.min.js' %}"></script>
+</body>
