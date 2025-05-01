@@ -21,7 +21,7 @@
                     <li class="nav-item"><a class="nav-link" href="/services.html">Produto/Serviços</a></li>
                     <li class="nav-item"><a class="nav-link" href="/contacts.html">Contato</a></li>
                     <li class="nav-item"><a class="nav-link" href="pag_detalhe.html">Sobre</a></li>
-                </ul><a class="btn btn-primary shadow" role="button" href="login.html" style="padding: 5px 32px;margin: 20px;color: var(--bs-dark);">Login</a><a class="btn btn-primary shadow" role="button" href="registro.html" style="padding: 5px 32px;background: var(--bs-success);color: var(--bs-dark);">Cadastre-se</a>
+                </ul><a class="btn btn-primary shadow" role="button" href="{% url 'usuarios:login' %}" style="padding: 5px 32px;margin: 20px;color: var(--bs-dark);">Login</a><a class="btn btn-primary shadow" role="button" href="{% url 'usuarios:registro' %}" style="padding: 5px 32px;background: var(--bs-success);color: var(--bs-dark);">Cadastre-se</a>
             </div>
         </div>
     </nav>
@@ -49,9 +49,23 @@
                             <div class="bs-icon-xl bs-icon-circle bs-icon-primary shadow bs-icon my-4"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person">
                                     <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z"></path>
                                 </svg></div>
-                            <form method="post">
-                                <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
-                                <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Senha"></div>
+                                {% if request.GET.mensagem != None %}
+                                    {% if request.GET.status != 'error' %}
+                                    <div class="alert alert-success">
+                                        {{ request.GET.mensagem }}
+                                    </div>
+                                    {% else %}
+                                    <div class="alert alert-warning">
+                                        {{ request.GET.mensagem }}
+                                    </div> 
+                                    {% endif %}
+                                {% endif %}
+                                
+                            <form method="post" action="{% url 'usuarios:logar' %}">
+                                {% csrf_token %}
+                                <input type="text" name="tipo_pessoa" id="" value="E" style="display: None;">
+                                <div class="mb-3"><input class="form-control" type="username" name="usuario" placeholder="usuário"></div>
+                                <div class="mb-3"><input class="form-control" type="password" name="senha" placeholder="Senha"></div>
                                 <div class="mb-3"><button class="btn btn-primary shadow d-block w-100" type="submit">Login</button></div>
                             </form>
                         </div>
@@ -61,9 +75,11 @@
                             <div class="bs-icon-xl bs-icon-circle bs-icon-primary shadow bs-icon my-4"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person">
                                     <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z"></path>
                                 </svg></div>
-                            <form method="post">
-                                <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
-                                <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Senha"></div>
+                            <form method="post" action="{% url 'usuarios:logar' %}">
+                                {% csrf_token %}
+                                <input type="text" name="tipo_pessoa" id="" value="C" style="display: None;">
+                                <div class="mb-3"><input class="form-control" type="username" name="usuario" placeholder="usuário"></div>
+                                <div class="mb-3"><input class="form-control" type="password" name="senha" placeholder="Senha"></div>
                                 <div class="mb-3"><button class="btn btn-primary shadow d-block w-100" type="submit">Login</button></div>
                             </form>
                         </div>

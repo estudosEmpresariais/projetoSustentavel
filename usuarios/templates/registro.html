@@ -21,7 +21,7 @@
                     <li class="nav-item"><a class="nav-link" href="/services.html">Produto/Serviços</a></li>
                     <li class="nav-item"><a class="nav-link" href="/contacts.html">Contato</a></li>
                     <li class="nav-item"><a class="nav-link" href="pag_detalhe.html">Sobre</a></li>
-                </ul><a class="btn btn-primary shadow" role="button" href="login.html" style="padding: 5px 32px;margin: 20px;color: var(--bs-dark);">Login</a><a class="btn btn-primary shadow" role="button" href="registro.html" style="padding: 5px 32px;background: var(--bs-success);color: var(--bs-dark);">Cadastre-se</a>
+                </ul><a class="btn btn-primary shadow" role="button" href="{% url 'usuarios:login' %}" style="padding: 5px 32px;margin: 20px;color: var(--bs-dark);">Login</a><a class="btn btn-primary shadow" role="button" href="{% url 'usuarios:registro' %}" style="padding: 5px 32px;background: var(--bs-success);color: var(--bs-dark);">Cadastre-se</a>
             </div>
         </div>
     </nav>
@@ -31,7 +31,9 @@
                 <div class="col-md-8 col-xl-6 text-center mx-auto">
                     <h2 class="fw-bold">Bem-vindo</h2>
                     <p>Estamos muito felizes que você decidiu se cadastrar em nossa plataforma, complete os campos e verá como ficou muito mais fácil encontrar novos clientes</p>
+                    
                 </div>
+                
             </div>
             <div class="row" style="margin-right: 0px;margin-left: 0px;margin-bottom: 25px;margin-top: -20px;">
                 <div class="col text-center">
@@ -43,13 +45,34 @@
                     <div class="card" id="registro-empreendedor">
                         <div class="card-body text-center bg-white border rounded d-flex flex-column align-items-center">
                             <div class="bs-icon-xl bs-icon-circle bs-icon-primary shadow bs-icon my-4"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person">
-                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z"></path>
+                                   
+                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z"></path>
                                 </svg></div><label class="form-label" style="color: var(--bs-primary);" for="foto_empresa">Selecionar foto</label><input class="d-xl-flex visually-hidden" type="file" id="foto_empresa" name="fotoEmpresa">
-                            <form method="post">
-                                <div class="mb-3"><input class="form-control" type="text" placeholder="Nome da empresa" style="border-radius: 16px;height: 46.7812px;padding: 9.6px 24px;min-width: 0;opacity: 1;border-width: 1px;border-color: var(--bs-dark-bg-subtle);" name="nome_empresa" required=""></div>
-                                <div class="mb-3"><input class="form-control" type="text" placeholder="Categoria" style="border-radius: 16px;height: 46.7812px;padding: 9.6px 24px;min-width: 0;opacity: 1;border-width: 1px;border-color: var(--bs-dark-bg-subtle);" name="categoria" required=""></div>
-                                <div class="mb-3"><input class="form-control" type="email" name="cnpj" placeholder="CPNJ" required=""></div>
-                                <div class="mb-3"><input class="form-control" type="password" name="senha" placeholder="Senha" style="border-color: var(--bs-dark-bg-subtle);" required=""></div>
+                                    {% if request.GET.status != 'error' %}
+                                    <div class="alert alert-success">
+                                        {{ request.GET.mensagem }}
+                                    </div>
+                                    {% else %}
+                                    <div class="alert alert-warning">
+                                        {{ request.GET.mensagem }}
+                                    </div> 
+                                    {% endif %}
+                            <!--     {% if status == 'error' %}
+                                    <p class="text-danger">{{mensagem}}</p>
+                                {% else %}
+                                    <p class="text-success">{{mensagem}}</p>
+                                {% endif %} -->
+                                <form method="post" action="{% url 'usuarios:create_user' %}">
+                                {% csrf_token %}
+                                
+                                <div class="mb-3"><input class="form-control" type="text" placeholder="Nome Fantasia" name="nome_fantasia" style="border-radius: 16px;height: 46.7812px;padding: 9.6px 24px;min-width: 0;opacity: 1;border-width: 1px;border-color: var(--bs-dark-bg-subtle);"  required=""></div>
+                                <div class="mb-3"><input class="form-control" type="text" placeholder="Razão Social" name="razao_social" style="border-radius: 16px;height: 46.7812px;padding: 9.6px 24px;min-width: 0;opacity: 1;border-width: 1px;border-color: var(--bs-dark-bg-subtle);"  required></div>
+<!--                                 <div class="mb-3"><input class="form-control" type="text" placeholder="Categoria" style="border-radius: 16px;height: 46.7812px;padding: 9.6px 24px;min-width: 0;opacity: 1;border-width: 1px;border-color: var(--bs-dark-bg-subtle);" name="categoria" required=""></div>
+ -->                                <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="EMAIL"></div>
+                               <div class="mb-3"><input class="form-control" type="number" name="cnpj"  placeholder="CPNJ"  oninput="limitarDigitos(this, 14)" required></div>
+                              <div class="mb-3"><input class="form-control" type="number" name="insc_estadual" placeholder="Inscrição Estadual"  oninput="limitarDigitos(this, 9)"></div>
+                                <div class="mb-3"><input class="form-control" type="username" name="usuario" placeholder="Nome de usuario" style="border-color: var(--bs-dark-bg-subtle);" required></div>
+                                <div class="mb-3"><input class="form-control" type="password" name="senha" placeholder="Senha" maxlength="8" minlength="8" style="border-color: var(--bs-dark-bg-subtle);" required></div>
                                 <div class="mb-3"><button class="btn btn-primary shadow d-block w-100" type="submit">Cadastrar</button></div>
                             </form>
                         </div>
@@ -59,9 +82,15 @@
                             <div class="bs-icon-xl bs-icon-circle bs-icon-primary shadow bs-icon my-4"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person">
                                     <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z"></path>
                                 </svg></div>
-                            <form method="post">
-                                <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
-                                <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Senha"></div>
+                                
+                            <form method="post" action="{% url 'usuarios:create_user' %}">
+                                {% csrf_token %}
+                                <div class="mb-3"><input class="form-control" type="text" name="nome" placeholder="Nome" required></div>
+                                <div class="mb-3"><input class="form-control" type="username" name="usuario" placeholder="usuário" required></div>
+                                <div class="mb-3"><input class="form-control" type="password" name="senha" placeholder="senha" maxlength="8" minlength="8"></div>
+                                <div class="mb-3"><input class="form-control" type="number" name="cpf" placeholder="CPF" oninput="limitarDigitos(this, 11)" required></div>
+                                <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="email"></div>
+                                <div class="mb-3"><input class="form-control" type="date" name="data_nascimento" placeholder="Data de Nascimento" required></div>
                                 <div class="mb-3"><button class="btn btn-primary shadow d-block w-100" type="submit">Login</button></div>
                             </form>
                         </div>
@@ -115,7 +144,14 @@
     </footer>
     <script src="{% static 'assets/js/jquery.min.js'%} "></script>
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'assets/js/script.min.js %}"></script>
+    <script src="{% static 'assets/js/script.min.js' %}"></script>
+    <script>
+        function limitarDigitos(input, limite) {
+          if (input.value.length > limite) {
+            input.value = input.value.slice(0, limite);
+          }
+        }
+      </script>
 </body>
 
 </html>

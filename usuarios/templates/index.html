@@ -21,7 +21,7 @@
                     <li class="nav-item"><a class="nav-link" href="/services.html">Produto/Serviços</a></li>
                     <li class="nav-item"><a class="nav-link" href="/contacts.html">Contato</a></li>
                     <li class="nav-item"><a class="nav-link" href="pag_detalhe.html">Sobre</a></li>
-                </ul><a class="btn btn-primary shadow" role="button" href="login.html" style="padding: 5px 32px;margin: 20px;color: var(--bs-dark);">Login</a><a class="btn btn-primary shadow" role="button" href="registro.html" style="padding: 5px 32px;background: var(--bs-success);color: var(--bs-dark);">Cadastre-se</a>
+                </ul><a class="btn btn-primary shadow" role="button" href="{% url 'usuarios:login' %}" style="padding: 5px 32px;margin: 20px;color: var(--bs-dark);">Login</a><a class="btn btn-primary shadow" role="button" href="{% url 'usuarios:registro' %}" style="padding: 5px 32px;background: var(--bs-success);color: var(--bs-dark);">Cadastre-se</a>
             </div>
         </div>
     </nav>
