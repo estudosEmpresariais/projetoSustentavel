@@ -16,12 +16,28 @@
     <nav class="navbar navbar-expand-xl sticky-top py-3 navbar-dark" id="mainNav" style="background: var(--bs-emphasis-color);">
         <div class="container"><a class="navbar-brand d-flex align-items-center" href="index.html"><img src="{% static 'assets/img/logos_semana_academica.png' %}" width="271" height="84"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
-                <ul class="navbar-nav mx-auto">
+                <ul class="navbar-nav mx-auto align-items-center">
                     <li class="nav-item"><a class="nav-link active" href="/index.html">Empreendedores</a></li>
                     <li class="nav-item"><a class="nav-link" href="/services.html">Produto/Serviços</a></li>
                     <li class="nav-item"><a class="nav-link" href="/contacts.html">Contato</a></li>
                     <li class="nav-item"><a class="nav-link" href="pag_detalhe.html">Sobre</a></li>
-                </ul><a class="btn btn-primary shadow" role="button" href="{% url 'usuarios:login' %}" style="padding: 5px 32px;margin: 20px;color: var(--bs-dark);">Login</a><a class="btn btn-primary shadow" role="button" href="{% url 'usuarios:registro' %}" style="padding: 5px 32px;background: var(--bs-success);color: var(--bs-dark);">Cadastre-se</a>
+                    <!--area deslogado-->
+                    <div id="area-deslogado" class="d-flex align-items-center">
+                        <li class="nav-item">
+                            <a class="btn btn-primary shadow" role="button" href="{% url 'usuarios:login' %}" style="padding: 5px 32px;margin: 20px;color: var(--bs-dark);">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary shadow" role="button" href="{% url 'usuarios:registro' %}" style="padding: 5px 32px;background: var(--bs-success);color: var(--bs-dark);">Cadastre-se</a>
+                        </li>
+                    </div>
+                    <!--area logado-->
+                    <div id="area-logado" class="d-flex align-items-center d-none"> 
+                        <img id="foto-usuario" src="????.jpg" class="rounded-circle me-2" style="width: 40px; height: 40px;">
+                        <span id="nome-usuario" class="navbar-text me-3">Nome do Usuário</span>
+                        <a id="botao-editar-dados" class="btn btn-primary me-2" href="/perfil">Editar Dados</a>
+                        <button id="botao-sair" class="btn btn-danger">Sair</button>
+                    </div>
+                </ul>
             </div>
         </div>
     </nav>

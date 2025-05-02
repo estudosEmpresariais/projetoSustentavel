@@ -1,0 +1,107 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Log in - EmpreendeX</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
+    <link rel="stylesheet" href="{% static 'assets/css/styles.min.css' %}">
+</head>
+
+<body style="background: var(--bs-primary);">
+    <nav class="navbar navbar-expand-xl sticky-top py-3 navbar-dark" id="mainNav" style="background: var(--bs-emphasis-color);">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="/"><img src="{% static 'assets/img/logos_semana_academica.png' %}" width="271" height="84"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="/index.html">Empreendedores</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/services.html">Produto/Serviços</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contacts.html">Contato</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pag_detalhe.html">Sobre</a></li>
+                </ul><a class="btn btn-primary shadow" role="button" href="login.html" style="padding: 5px 32px;margin: 20px;color: var(--bs-dark);">Login</a><a class="btn btn-primary shadow" role="button" href="registro.html" style="padding: 5px 32px;background: var(--bs-success);color: var(--bs-dark);">Cadastre-se</a>
+            </div>
+        </div>
+    </nav>
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Editar perfil</h2>
+            <div class="col-md-8 offset-md-2 d-sm-flex d-md-flex d-lg-flex justify-content-sm-center justify-content-md-center justify-content-lg-center">
+                <form method="post">
+                    <!--area cliente -->
+                    <div id="form-cliente">
+                        <input class="form-control mb-3" type="text" placeholder="Nome" name="nome">
+                        <input class="form-control mb-3" type="text" placeholder="Username" name="username">
+                        <input class="form-control mb-3" type="password" placeholder="Senha" name="password">
+                        <input class="form-control mb-3" type="number" name="cpf" placeholder="CPF">
+                        <input class="form-control mb-3" type="text" name="endereco" placeholder="Endereço">
+                        <input class="form-control mb-3" type="email" name="email" placeholder="Email">
+                        <input class="form-control mb-3" type="text" name="data_nascimento" placeholder="Data de nascimento">
+                    </div>
+                    <!--area empreendedor -->
+                    <div class="d-none" id="form-empreendedor">
+                        <input class="form-control mb-3 me-xl-0" type="text" placeholder="Nome fantasia" name="nome_fantasia">
+                        <input class="form-control mb-3" type="text" placeholder="Razão social" name="razao_social">
+                        <input class="form-control mb-3" type="email" placeholder="Email" name="email">
+                        <input class="form-control mb-3" type="number" name="cnpj" placeholder="CNPJ">
+                        <input class="form-control mb-3" type="text" name="endereco" placeholder="Endereço">
+                        <input class="form-control mb-3" type="number" name="ins_estadual" placeholder="Inscrição estadual">
+                        <input class="form-control mb-3" type="text" name="username" placeholder="Nome do usuario">
+                        <input class="form-control mb-3" type="password" placeholder="Senha" name="password">
+                    </div>
+                    <button class="btn btn-outline-light w-100 mt-4" type="submit">Fazer alterações</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <footer class="bg-dark">
+        <div class="container py-4 py-lg-5">
+            <div class="row justify-content-center">
+                <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
+                    <h3 class="fs-6 fw-bold">Serviços</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Empreendedores próximos</a></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
+                    <h3 class="fs-6 fw-bold">Sobre</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Companhia</a></li>
+                        <li><a href="#">Time</a></li>
+                        <li><a href="#">Legado</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
+                    <h3 class="fs-6 fw-bold">Carreira</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Vagas abertas</a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#">Benefícios</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 text-center text-lg-start d-flex flex-column align-items-center order-first align-items-lg-start order-lg-last">
+                    <div class="fw-bold d-flex align-items-center mb-2"><img src="{% static 'assets/img/logos_semana_academica.png' %}" width="207" height="64"></div>
+                    <p class="text-muted">Todos os direitos reservados</p>
+                </div>
+            </div>
+            <hr>
+            <div class="text-muted d-flex justify-content-between align-items-center pt-3">
+                <p class="mb-0">Copyright © 2025 EmpreendeX</p>
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item"></li>
+                    <li class="list-inline-item"></li>
+                    <li class="list-inline-item"></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/script.min.js' %}"></script>
+</body>
+
+</html>
