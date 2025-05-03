@@ -38,14 +38,14 @@ class empreendedores(ListView):
 		return context
 class detail_empreendedor(DetailView):
 	model = Usuario
-	template_name = 'detalhes.html'
+	template_name = 'pag_detalhe.html'
 
 	def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
 		context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
-		context.update = {
-			'': self.kwargs['id'],
+		context = {
+			'usuario': Usuario.objects.get(id=self.kwargs['pk']),
 		}
 		return context
 
@@ -100,8 +100,8 @@ def create_user(request):
 	nome = request.POST.get('nome')
 	email = request.POST.get('email')
 	foto = request.FILES.get('foto')
-	username = Usuario.objects.filter(username=usuario).values('username').first() if Usuario.objects.filter(username=usuario).values('username').first() else [True]
-	if any(username):
+	username = Usuario.objects.filter(username=usuario).values('username').count()  if Usuario.objects.filter(username=usuario).values('username').count() > 0 else 0
+	if username != 0:
 		mensagem = f"O usuário enviado já existe ou alguns dados estão inconsistentes!"
 		status = "error"
 		

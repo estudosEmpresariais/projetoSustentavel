@@ -13,18 +13,7 @@
 </head>
 
 <body style="background: var(--bs-primary);">
-    <nav class="navbar navbar-expand-xl sticky-top py-3 navbar-dark" id="mainNav" style="background: var(--bs-emphasis-color);">
-        <div class="container"><a class="navbar-brand d-flex align-items-center" href="/"><img src="{% static 'assets/img/logos_semana_academica.png' %}" width="271" height="84"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navcol-1">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="/index.html">Empreendedores</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/services.html">Produto/Serviços</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/contacts.html">Contato</a></li>
-                    <li class="nav-item"><a class="nav-link" href="pag_detalhe.html">Sobre</a></li>
-                </ul><a class="btn btn-primary shadow" role="button" href="login.html" style="padding: 5px 32px;margin: 20px;color: var(--bs-dark);">Login</a><a class="btn btn-primary shadow" role="button" href="registro.html" style="padding: 5px 32px;background: var(--bs-success);color: var(--bs-dark);">Cadastre-se</a>
-            </div>
-        </div>
-    </nav>
+{% include "nav.html" %}
     <section class="py-5">
         <div class="container">
             <h2 class="text-center mb-4">Editar perfil</h2>
