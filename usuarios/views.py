@@ -34,6 +34,7 @@ class empreendedores(ListView):
 		context = {
 			#'usuario': Usuario.objects.get(id=self.kwargs['id']),
 			'id': self.kwargs['id'],
+			'empreendedores': Empreendedor.objects.all()
 		}
 		return context
 class detail_empreendedor(DetailView):
