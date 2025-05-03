@@ -26,16 +26,27 @@
                 </div>
             </div>
             <div class="row" style="padding-top: 40px;">
+                {% for empreendedor in empreendedores %}
                 <div class="col-12 col-md-4">
+                    
                     <div>
-                        <h6>Assaí</h6>
+                        <h6><b>{{empreendedor.razao_social | upper}}</b></h6>
                     </div>
                     <div class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center justify-content-xl-center div-com-botao" style="background: #ffffff;height: 222px;"><img class="img-fluid" src="{% static 'assets/img/logo_assai.png' %}" width="220" height="158" style="display: block;border-style: none;"><a class="btn btn-primary border rounded-0 d-xl-flex botao-no-canto" role="button" href="{% url 'usuarios:detail_empreendedor' id %}">Ver detalhes</a></div>
                     <p class="mb-1">Varejista</p>
                     <p class="mb-1">(86) 9 3033-3030</p>
+                    {% if empreendedor.email %}
+                        <p class="mb-1">{{empreendedor.email}}</p>
+                    {% else %}
+                        <p class="mb-1">Não informado</p>
+                    {% endif %}
                     <p class="mb-1">R. Gonçalo Nunes, 1000 - São Raimundo, Teresina - PI, 64075-080</p>
+                    <br>
                 </div>
-                <div class="col-12 col-md-4">
+                
+                {% endfor %}
+                    
+                <!-- <div class="col-12 col-md-4">
                     <div>
                         <h6>Pague Menos</h6>
                     </div>
@@ -82,7 +93,7 @@
                     <p class="mb-1">(86) 9 3033-3030</p>
                     <p class="mb-1">Av. José Francisco de Almeida Neto - Itararé, Teresina - PI, 64078-271</p>
                 </div>
-            </div>
+            </div> -->
         </div>
     </section>
     {% include "footer.html" %}
