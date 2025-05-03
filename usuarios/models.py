@@ -12,6 +12,7 @@ class Usuario(User):
    nome = models.CharField('Nome', max_length=50 )
    senha = models.CharField('Senha', max_length=8 )
    tipo_usuario = models.CharField('Tipo Usuário', max_length=1, choices=TIPO_USUARIO, default='C')
+   foto = models.ImageField('Foto Usuário', null=True, blank=True)
 
 '''
 PESSOA									

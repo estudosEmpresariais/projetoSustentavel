@@ -6,25 +6,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Log in - EmpreendeX</title>
+    <title>Cadastre-se - EmpreendeX</title>
     <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
     <link rel="stylesheet" href="{% static 'assets/css/styles.min.css' %}">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-xl sticky-top py-3 navbar-dark" id="mainNav" style="background: var(--bs-emphasis-color);">
-        <div class="container"><a class="navbar-brand d-flex align-items-center" href="/"><img src="{% static 'assets/img/logos_semana_academica.png' %}" width="271" height="84"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navcol-1">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="/index.html">Empreendedores</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/services.html">Produto/Serviços</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/contacts.html">Contato</a></li>
-                    <li class="nav-item"><a class="nav-link" href="pag_detalhe.html">Sobre</a></li>
-                </ul><a class="btn btn-primary shadow" role="button" href="{% url 'usuarios:login' %}" style="padding: 5px 32px;margin: 20px;color: var(--bs-dark);">Login</a><a class="btn btn-primary shadow" role="button" href="{% url 'usuarios:registro' %}" style="padding: 5px 32px;background: var(--bs-success);color: var(--bs-dark);">Cadastre-se</a>
-            </div>
-        </div>
-    </nav>
+    {% include "nav.html" %}
     <section class="bg-primary py-5">
         <div class="container py-5">
             <div class="row mb-4 mb-lg-5">
@@ -44,10 +33,15 @@
                 <div class="col-md-6 col-xl-4">
                     <div class="card" id="registro-empreendedor">
                         <div class="card-body text-center bg-white border rounded d-flex flex-column align-items-center">
-                            <div class="bs-icon-xl bs-icon-circle bs-icon-primary shadow bs-icon my-4"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person">
+                            <div class="bs-icon-xl bs-icon-circle bs-icon-primary shadow bs-icon my-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person">
+                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z"></path>
+                                </svg>
                                    
                                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z"></path>
-                                </svg></div><label class="form-label" style="color: var(--bs-primary);" for="foto_empresa">Selecionar foto</label><input class="d-xl-flex visually-hidden" type="file" id="foto_empresa" name="fotoEmpresa">
+                                <img id="preview-image" src="" alt="preview" style="width: 100%; height: 100%; object-fit: cover; display: none; border-radius: 50%;">
+    
+                           </div>
                                 {% if request.GET.mensagem %} 
                                     {% if request.GET.status != 'error' %}
                                     <div class="alert alert-success">
@@ -64,7 +58,7 @@
                                 {% else %}
                                     <p class="text-success">{{mensagem}}</p>
                                 {% endif %} -->
-                                <form method="post" action="{% url 'usuarios:create_user' %}">
+                                <form method="post" action="{% url 'usuarios:create_user' %}"  enctype="multipart/form-data">
                                 
                                 
                                 <div class="mb-3"><input class="form-control" type="text" placeholder="Nome Fantasia" name="nome_fantasia" style="border-radius: 16px;height: 46.7812px;padding: 9.6px 24px;min-width: 0;opacity: 1;border-width: 1px;border-color: var(--bs-dark-bg-subtle);"  required=""></div>
@@ -81,12 +75,18 @@
                     </div>
                     <div class="card" id="registro-cliente" style="display: block;">
                         <div class="card-body text-center border rounded d-flex flex-column align-items-center" style="background: var(--ref-gray-700);border-style: none;border-color: rgba(0,0,0,0);">
-                            <div class="bs-icon-xl bs-icon-circle bs-icon-primary shadow bs-icon my-4"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person">
+                            <div class="bs-icon-xl bs-icon-circle bs-icon-primary shadow bs-icon my-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person">
                                     <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z"></path>
-                                </svg></div>
+                                </svg>
+                                   
+                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z"></path>
+                                <img id="preview-image2" src="" alt="preview" style="width: 100%; height: 100%; object-fit: cover; display: none; border-radius: 50%;">
+    
+                           </div>
                                 
-                            <form method="post" action="{% url 'usuarios:create_user' %}">
-                                
+                            <form method="post" action="{% url 'usuarios:create_user' %}" enctype="multipart/form-data">
+                                <label class="form-label" style="color: var(--bs-primary);" for="foto_empresa">Selecionar foto</label><input class="d-xl-flex visually-hidden" type="file" id="foto_empresa" name="foto">                 
                                 <div class="mb-3"><input class="form-control" type="text" name="nome" placeholder="Nome" required></div>
                                 <div class="mb-3"><input class="form-control" type="username" name="usuario" placeholder="usuário" required></div>
                                 <div class="mb-3"><input class="form-control" type="password" name="senha" placeholder="senha" maxlength="8" minlength="8" required></div>
@@ -101,49 +101,7 @@
             </div>
         </div>
     </section>
-    <footer class="bg-dark">
-        <div class="container py-4 py-lg-5">
-            <div class="row justify-content-center">
-                <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
-                    <h3 class="fs-6 fw-bold">Serviços</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Empreendedores próximos</a></li>
-                        <li></li>
-                        <li></li>
-                    </ul>
-                </div>
-                <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
-                    <h3 class="fs-6 fw-bold">Sobre</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Companhia</a></li>
-                        <li><a href="#">Time</a></li>
-                        <li><a href="#">Legado</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
-                    <h3 class="fs-6 fw-bold">Carreira</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Vagas abertas</a></li>
-                        <li><a href="#"></a></li>
-                        <li><a href="#">Benefícios</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 text-center text-lg-start d-flex flex-column align-items-center order-first align-items-lg-start order-lg-last">
-                    <div class="fw-bold d-flex align-items-center mb-2"><img src="{% static 'assets/img/logos_semana_academica.png' %}" width="207" height="64"></div>
-                    <p class="text-muted">Todos os direitos reservados</p>
-                </div>
-            </div>
-            <hr>
-            <div class="text-muted d-flex justify-content-between align-items-center pt-3">
-                <p class="mb-0">Copyright © 2025 EmpreendeX</p>
-                <ul class="list-inline mb-0">
-                    <li class="list-inline-item"></li>
-                    <li class="list-inline-item"></li>
-                    <li class="list-inline-item"></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
+    {% include "footer.html" %}
     <script src="{% static 'assets/js/jquery.min.js'%} "></script>
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'assets/js/script.min.js' %}"></script>
@@ -154,6 +112,36 @@
           }
         }
       </script>
+<script>
+    document.getElementById("foto_empresa").addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById("preview-image");
+
+        if (file && file.type.startsWith("image/")) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+<script>
+    document.getElementById("foto_empresa").addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById("preview-image2");
+
+        if (file && file.type.startsWith("image/")) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
 </body>
 
 </html>

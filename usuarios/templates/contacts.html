@@ -13,18 +13,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-xl sticky-top py-3 navbar-dark" id="mainNav" style="background: var(--bs-emphasis-color);">
-        <div class="container"><a class="navbar-brand d-flex align-items-center" href="/"><img src="{% static 'assets/img/logos_semana_academica.png' %}" width="271" height="84"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navcol-1">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="/index.html">Empreendedores</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/services.html">Produto/Serviços</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="/contacts.html">Contato</a></li>
-                    <li class="nav-item"><a class="nav-link" href="pag_detalhe.html">Sobre</a></li>
-                </ul><a class="btn btn-primary shadow" role="button" href="login.html" style="padding: 5px 32px;margin: 20px;color: var(--bs-dark);">Login</a><a class="btn btn-primary shadow" role="button" href="registro.html" style="padding: 5px 32px;background: var(--bs-success);color: var(--bs-dark);">Cadastre-se</a>
-            </div>
-        </div>
-    </nav>
+{% include "nav.html" %}
     <section class="py-5">
         <div class="container py-5">
             <div class="row mb-5">
@@ -78,49 +67,7 @@
             </div>
         </div>
     </section>
-    <footer class="bg-dark">
-        <div class="container py-4 py-lg-5">
-            <div class="row justify-content-center">
-                <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
-                    <h3 class="fs-6 fw-bold">Serviços</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Empreendedores próximos</a></li>
-                        <li></li>
-                        <li></li>
-                    </ul>
-                </div>
-                <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
-                    <h3 class="fs-6 fw-bold">Sobre</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Companhia</a></li>
-                        <li><a href="#">Time</a></li>
-                        <li><a href="#">Legado</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
-                    <h3 class="fs-6 fw-bold">Carreira</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Vagas abertas</a></li>
-                        <li><a href="#"></a></li>
-                        <li><a href="#">Benefícios</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 text-center text-lg-start d-flex flex-column align-items-center order-first align-items-lg-start order-lg-last">
-                    <div class="fw-bold d-flex align-items-center mb-2"><img src="{% static 'assets/img/logos_semana_academica.png' %}" width="207" height="64"></div>
-                    <p class="text-muted">Todos os direitos reservados</p>
-                </div>
-            </div>
-            <hr>
-            <div class="text-muted d-flex justify-content-between align-items-center pt-3">
-                <p class="mb-0">Copyright © 2025 EmpreendeX</p>
-                <ul class="list-inline mb-0">
-                    <li class="list-inline-item"></li>
-                    <li class="list-inline-item"></li>
-                    <li class="list-inline-item"></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
+    {% include "footer.html" %}
     <script src="{% static 'assets/js/jquery.min.js' %} "></script>
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %} "></script>
     <script src="{% static 'assets/js/script.min.js' %}"        ></script>

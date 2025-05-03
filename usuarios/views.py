@@ -22,21 +22,49 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
-class servicos(ListView):
+class empreendedores(ListView):
 	model = Usuario
 	template_name = 'services.html'
 
+	def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+		print(f'variavel id: {self.kwargs['id']}')
+		context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+		context = {
+			#'usuario': Usuario.objects.get(id=self.kwargs['id']),
+			'id': self.kwargs['id'],
+		}
+		return context
+class detail_empreendedor(DetailView):
+	model = Usuario
+	template_name = 'detalhes.html'
+
+	def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+		context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+		context.update = {
+			'': self.kwargs['id'],
+		}
+		return context
+
 @csrf_exempt
 def logar(request):
-	for user in Usuario.objects.filter(is_active=True).values('username', 'senha', 'id'):
-		print(f'{user['senha'] }- {request.POST.get('senha')}')
+
+	print(f'tipo pessoa: {request.POST.get('tipo_pessoa')}')
+	if request.POST.get('tipo_pessoa') == 'C':
+		usuarios = Usuario.objects.filter(is_active=True, tipo_usuario='C').values('username', 'senha', 'id')
+	else:
+		usuarios = Usuario.objects.filter(is_active=True, tipo_usuario='E').values('username', 'senha', 'id')
+	for user in usuarios:
 		if request.POST.get('usuario') == user['username'] and request.POST.get('senha') == user['senha']:
-			mensagem = f"Usuário ou Senha inválidos!"
+			mensagem = f"Usuário logado com sucesso."
 			status = "sucess"
 			query = urlencode({'id': user['id'], 'usuario': user['username'], 'status': status})
 			url = 'usuarios:servicos' + '?' + query
-			return redirect('usuarios:servicos', user['id'])
-	
+			return redirect('usuarios:empreendedores', user['id'])
+		
 	mensagem = f"Usuário ou Senha inválidos!"
 	status = "error"
 	query = urlencode({'status': status, 'mensagem': mensagem})
@@ -71,36 +99,40 @@ def create_user(request):
 	data_nascimento = request.POST.get('data_nascimento')
 	nome = request.POST.get('nome')
 	email = request.POST.get('email')
-	if cnpj:
-		user = Usuario.objects.create(nome=usuario, senha=senha, tipo_usuario='E', username=usuario, password=senha, is_active=True, email=email)
-		
-		user.save()
-		empresa = Empreendedor.objects.create(razao_social=razao_social, nome_fantasia=nome_fantasia, cnpj=cnpj, inscricao_estadual=insc_estadual, usuario=user)
-		empresa.save()
-		mensagem = f"Usuário {user.nome} criado com sucesso!"
-		status = "sucess"
+	foto = request.FILES.get('foto')
+	username = Usuario.objects.filter(username=usuario).values('username').first() if Usuario.objects.filter(username=usuario).values('username').first() else [True]
+	if any(username):
+		mensagem = f"O usuário enviado já existe ou alguns dados estão inconsistentes!"
+		status = "error"
 		
 		query = urlencode({'status': status, 'mensagem': mensagem})
 		url = reverse('usuarios:registro') + '?' + query
+		
 		return redirect(url)
-	elif cpf:
-		user = Usuario.objects.create(nome=usuario, senha=senha, tipo_usuario='C', username=usuario, password=senha, is_active=True, email=email)
-		user.save()
-		cliente = Cliente.objects.create(nome=nome, cpf=cpf, data_nascimento=data_nascimento, email=email, usuario=user)
-		cliente.save()
-		mensagem = f"Usuário {user.nome} criado com sucesso!"
-		status = "sucess"
-		query = urlencode({'status': status, 'mensagem': mensagem})
-		url = reverse('usuarios:registro') + '?' + query	
-		return redirect(url)
+	else:
+		if cnpj:
+			user = Usuario.objects.create(nome=usuario, senha=senha, tipo_usuario='E', username=usuario, password=senha, is_active=True, email=email, foto=foto)
+			
+			user.save()
+			empresa = Empreendedor.objects.create(razao_social=razao_social, nome_fantasia=nome_fantasia, cnpj=cnpj, inscricao_estadual=insc_estadual, usuario=user, tipo_pessoa='J')
+			empresa.save()
+			mensagem = f"Usuário {user.nome} criado com sucesso!"
+			status = "sucess"
+			
+			query = urlencode({'status': status, 'mensagem': mensagem})
+			url = reverse('usuarios:registro') + '?' + query
+			return redirect(url)
+		elif cpf:
+			user = Usuario.objects.create(nome=usuario, senha=senha, tipo_usuario='C', username=usuario, password=senha, is_active=True, email=email, foto=foto)
+			user.save()
+			cliente = Cliente.objects.create(nome=nome, cpf=cpf, data_nascimento=data_nascimento, email=email, usuario=user)
+			cliente.save()
+			mensagem = f"Usuário {user.nome} criado com sucesso!"
+			status = "sucess"
+			query = urlencode({'status': status, 'mensagem': mensagem})
+			url = reverse('usuarios:registro') + '?' + query	
+			return redirect(url)
 
-	mensagem = f"Ops, parece que algo deu errado, verifique seus dados!"
-	status = "error"
-	
-	query = urlencode({'status': status, 'mensagem': mensagem})
-	url = reverse('usuarios:registro') + '?' + query
-	
-	return redirect(url)
 		#object = User.objects.create(nome=usuario, senha=senha, tipo_usuario='C', username=usuario, password=senha, is_active=True)
 
 def sobre(request):

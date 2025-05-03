@@ -12,7 +12,7 @@ class Pessoa(models.Model):
       ('J', 'Jurídica'),
    )
    email = models.CharField('Email', max_length=40, null=True, blank=True)
-   telefone = models.IntegerField('Telefone', max_length=11, null=True, blank=True)
+   telefone = models.IntegerField('Telefone', null=True, blank=True)
    tipo_pessoa = models.CharField('Tipo Pessoa', max_length=1, default='F', choices=TIPO_PESSOA)
    usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT, null=True, blank=True)
 
@@ -31,8 +31,8 @@ class Endereco(models.Model):
    logradouro = models.CharField('Logradouro', max_length=100, null=True, blank=True)
    bairro = models.CharField('Bairro', max_length=50, null=True, blank=True)
    complemento = models.CharField('Bairro', max_length=50, null=True, blank=True)
-   latitude = models.IntegerField('Latitude', max_length=15, null=True, blank=True)
-   longitude = models.IntegerField('Longitude', max_length=15, null=True, blank=True)
-   numero = models.IntegerField('Número', max_length=12, null=True, blank=True)
+   latitude = models.IntegerField('Latitude', null=True, blank=True)
+   longitude = models.IntegerField('Longitude', null=True, blank=True)
+   numero = models.IntegerField('Número', null=True, blank=True)
    cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT, null=True, blank=True)
-   empreendor = models.ForeignKey(Empreendedor, on_delete=models.PROTECT, null=True, blank=True)
+   empreendedor = models.ForeignKey(Empreendedor, on_delete=models.PROTECT, null=True, blank=True)
