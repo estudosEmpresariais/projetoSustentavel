@@ -9,7 +9,8 @@ from django.contrib.auth.decorators import permission_required
 from datetime import datetime
 from django.http import JsonResponse
 from django.db.models import Prefetch
-
+import json
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -141,7 +142,7 @@ class empreendedores(ListView):
 
 	def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
-		print(f'variavel id: {self.kwargs['id']}')
+	
 		context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
 		context = {
@@ -154,17 +155,24 @@ class empreendedores(ListView):
 		}
 		return context
 class detail_empreendedor(DetailView):
-	model = Usuario
+	model = Empreendedor
 	template_name = 'pag_detalhe.html'
 
 	def get_context_data(self, **kwargs):
+		try:
+			endereco = Endereco.objects.get(usuario__id=self.kwargs['usuario_id']),
+		except Exception as e:
+			endereco = {}
         # Call the base implementation first to get a context
 		context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
 		context = {
-			'usuario': Usuario.objects.get(id=self.kwargs['pk']),
+			'usuario': Usuario.objects.get(id=self.kwargs['usuario_id']),
+			'endereco': endereco,
+			'empreendedor': Empreendedor.objects.get(id=self.kwargs['pk']),
 		}
 		return context
+
 
 @csrf_exempt
 def logar(request):
@@ -206,17 +214,23 @@ def registro(request):
 
 @csrf_exempt
 def create_user(request):
+	print(f'requests: {request.POST}')
 	cidade = request.POST.get('cidade') 
 	numero = request.POST.get('numero') 
+	#dados = json.loads(request.body)
+	latitude = request.POST.get('latitude')
+	longitude = request.POST.get('longitude')
+	longitude = longitude.replace(".", "")
+	latitude = latitude.replace(".", "")
 	bairro = request.POST.get('bairro') if request.POST.get('bairro') else ''
 	logradouro = request.POST.get('logradouro') if request.POST.get('logradouro') else ''
-	telefone = request.POST.get('telefone') if request.POST.get('logradouro') else ''
+	telefone = request.POST.get('telefone') if request.POST.get('telefone') else ''
 	senha = request.POST.get('senha')
 	usuario = request.POST.get('usuario')
 	razao_social = request.POST.get('razao_social')
 	nome_fantasia = request.POST.get('nome_fantasia')
 	cnpj = request.POST.get('cnpj')
-	insc_estadual = request.POST.get('ins_estadual') if request.POST.get('ins_estadual') != '' else None
+	insc_estadual = request.POST.get('insc_estadual') if request.POST.get('insc_estadual') != '' else None
 	cpf = request.POST.get('cpf')
 	data_nascimento = request.POST.get('data_nascimento')
 	nome = request.POST.get('nome')
@@ -224,6 +238,7 @@ def create_user(request):
 	email = request.POST.get('email')
 	foto = request.FILES.get('foto')
 	username = Usuario.objects.filter(username=usuario).values('username').count()  if Usuario.objects.filter(username=usuario).values('username').count() > 0 else 0
+	print(f'encontrou: {username}')
 	if username != 0:
 		mensagem = f"O usuário enviado já existe ou alguns dados estão inconsistentes!"
 		status = "error"
@@ -233,31 +248,41 @@ def create_user(request):
 		
 		return redirect(url)
 	else:
-		endereco = Endereco.objects.create(logradouro=logradouro, bairro=bairro, numero=numero, cidade=cidade)
+		
 		if cnpj:
-			user = Usuario.objects.create(nome=usuario, senha=senha, tipo_usuario='E', username=usuario, password=senha, is_active=True, email=email, foto=foto)
-			
-			user.save()
-			empresa = Empreendedor.objects.create(razao_social=razao_social, email=email, nome_fantasia=nome_fantasia, cnpj=cnpj, inscricao_estadual=insc_estadual, usuario=user, tipo_pessoa='J', telefone=telefone, descricao_servicos=descricao_servicos)
-			empresa.save()
+			try:
+				user = Usuario.objects.create(nome=usuario, senha=senha, tipo_usuario='E', username=usuario, password=senha, is_active=True, email=email, foto=foto)
+				endereco = Endereco.objects.create(logradouro=logradouro, bairro=bairro, numero=numero, cidade=cidade, usuario=user, longitude=longitude, latitude=latitude)
+
+				user.save()
+
+				empresa = Empreendedor.objects.create(razao_social=razao_social, email=email, nome_fantasia=nome_fantasia, cnpj=cnpj, inscricao_estadual=insc_estadual, usuario=user, tipo_pessoa='J', telefone=telefone, descricao_servicos=descricao_servicos)
+				empresa.save()
+
+
+				#return redirect(url)
+			except Exception as e:
+				print(e)
 			mensagem = f"Usuário {user.nome} criado com sucesso!"
 			status = "sucess"
-			
+
 			query = urlencode({'status': status, 'mensagem': mensagem})
 			url = reverse('usuarios:registro') + '?' + query
-
-			return redirect(url)
 		elif cpf:
-			user = Usuario.objects.create(nome=usuario, senha=senha, tipo_usuario='C', username=usuario, password=senha, is_active=True, email=email, foto=foto)
-			user.save()
-			cliente = Cliente.objects.create(nome=nome, cpf=cpf, data_nascimento=data_nascimento, email=email, usuario=user, telefone=telefone)
-			cliente.save()
+			try:
+				user = Usuario.objects.create(nome=usuario, senha=senha, tipo_usuario='C', username=usuario, password=senha, is_active=True, email=email, foto=foto)
+				endereco = Endereco.objects.create(logradouro=logradouro, bairro=bairro, numero=numero, cidade=cidade, usuario=user)
+				user.save()
+				cliente = Cliente.objects.create(nome=nome, cpf=cpf, data_nascimento=data_nascimento, email=email, usuario=user, telefone=telefone)
+				cliente.save()
+			except Exception as e:
+				print(e)
 			mensagem = f"Usuário {user.nome} criado com sucesso!"
 			status = "sucess"
 			query = urlencode({'status': status, 'mensagem': mensagem})
 			url = reverse('usuarios:registro') + '?' + query	
-		
-			return redirect(url)
+
+		return redirect(url)
 
 		#object = User.objects.create(nome=usuario, senha=senha, tipo_usuario='C', username=usuario, password=senha, is_active=True)
 

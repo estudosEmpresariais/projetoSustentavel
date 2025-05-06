@@ -23,10 +23,10 @@
                 </div>
                 <div class="col-12 col-md-5">
                     <div>
-                        <h3 class="text-start mb-4" id="nome-empresa">J.Monte</h3>
-                        <p id="categoria">Loja de ferramentas</p>
-                        <p id="telefone">(86) 3030-2020</p>
-                        <p id="endereco">Quadra A, 13 - Itararé, Teresina - PI,&nbsp;64077-265</p>
+                        <h3 class="text-start mb-4" id="nome-empresa"><b>Nome: </b>{{empreendedor.razao_social}}</h3>
+                        <p id="categoria"><b>Descrição Serviços:</b> {{empreendedor.descricao_servicos}}</p>
+                        <p id="telefone"><b>Telefone: </b>{{empreendedor.telefone}}</p>
+                        <p id="endereco"><b>Endereço: </b>{{endereco.logradouro}} - {{endereco.bairro}} N° {{endereco.numero}} - {{endereco.cidade}}&nbsp;64077-265</p>
                     </div>
                 </div>
             </div>
@@ -36,6 +36,7 @@
     <script src="{% static 'assets/js/jquery.min.js' %}"></script>
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'assets/js/script.min.js' %}"></script>
+ 
 </body>
 
 </html>

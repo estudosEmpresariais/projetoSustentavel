@@ -60,9 +60,14 @@
                                 {% endif %} -->
                                 <form method="post" action="{% url 'usuarios:create_user' %}"  enctype="multipart/form-data">
                                     <label class="form-label" style="color: var(--bs-primary);" for="foto_empresa">Selecionar foto</label><input class="d-xl-flex visually-hidden" type="file" id="foto_empresa" name="foto">                    
-                                
+                                    <div>
+                                        
+                                        
+                                        <input type="hidden" name="latitude" id="latitude">
+                                    <input type="hidden" name="longitude" id="longitude">                               
                                 <div class="mb-3"><input class="form-control" type="text" placeholder="Nome Fantasia" name="nome_fantasia" style="border-radius: 16px;height: 46.7812px;padding: 9.6px 24px;min-width: 0;opacity: 1;border-width: 1px;border-color: var(--bs-dark-bg-subtle);"  required=""></div>
                                 <div class="mb-3"><input class="form-control" type="text" placeholder="Razão Social" name="razao_social" style="border-radius: 16px;height: 46.7812px;padding: 9.6px 24px;min-width: 0;opacity: 1;border-width: 1px;border-color: var(--bs-dark-bg-subtle);"  required></div>
+                                <div class="mb-3"><input class="form-control" type="tel" placeholder="Telefone" name="telefone" style="border-radius: 16px;height: 46.7812px;padding: 9.6px 24px;min-width: 0;opacity: 1;border-width: 1px;border-color: var(--bs-dark-bg-subtle);" ></div>
 <!--                                 <div class="mb-3"><input class="form-control" type="text" placeholder="Categoria" style="border-radius: 16px;height: 46.7812px;padding: 9.6px 24px;min-width: 0;opacity: 1;border-width: 1px;border-color: var(--bs-dark-bg-subtle);" name="categoria" required=""></div>
  -->                            <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="EMAIL"></div>
                             <div class="mb-3"><input class="form-control" type="text" name="descricao_servicos" placeholder="Descrição Serviços"></div>
@@ -84,7 +89,7 @@
                                 <div class="mb-3"><input class="form-control" type="number" name="insc_estadual" placeholder="Inscrição Estadual"  oninput="limitarDigitos(this, 9)"></div>
                                 <div class="mb-3"><input class="form-control" type="username" name="usuario" placeholder="Nome de usuario" style="border-color: var(--bs-dark-bg-subtle);" required></div>
                                 <div class="mb-3"><input class="form-control" type="password" name="senha" placeholder="Senha" maxlength="8" minlength="8" style="border-color: var(--bs-dark-bg-subtle);" required></div>
-                                <div class="mb-3"><button class="btn btn-primary shadow d-block w-100" type="submit">Cadastrar</button></div>
+                                <div class="mb-3"><button class="btn btn-primary shadow d-block w-100" type="submit"  >Cadastrar</button></div>
                             </form>
                         </div>
                     </div>
@@ -101,6 +106,10 @@
                            </div>
                                 
                             <form method="post" action="{% url 'usuarios:create_user' %}" enctype="multipart/form-data">
+                                <input type="hidden" name="latitude" id="latitude">
+            
+
+                                <input type="hidden" name="longitude" id="longitude">
                                 <label class="form-label" style="color: var(--bs-primary);" for="foto_empresa">Selecionar foto</label><input class="d-xl-flex visually-hidden" type="file" id="foto_empresa" name="foto">                 
                                 <div class="mb-3"><input class="form-control" type="text" name="nome" placeholder="Nome" required></div>
                                 <div class="mb-3"><input class="form-control" type="username" name="usuario" placeholder="usuário" required></div>
@@ -156,6 +165,49 @@
             reader.readAsDataURL(file);
         }
     });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            document.getElementById("location").innerHTML = "Geolocalização não é suportada por este navegador.";
+        }
+  
+
+    function showPosition(position) {
+        
+        let latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        
+       document.getElementById('latitude').value = latitude;
+       document.getElementById('longitude').value = longitude;
+       lat =  document.getElementById('latitude').value;
+       long =  document.getElementById('longitude').value;
+       console.log('lat: ' + lat + 'long:' + long)
+        
+    }
+
+
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                document.getElementById("location").innerHTML = "Usuário negou a solicitação de Geolocalização.";
+                break;
+            case error.POSITION_UNAVAILABLE:
+                document.getElementById("location").innerHTML = "Informação de localização não está disponível.";
+                break;
+            case error.TIMEOUT:
+                document.getElementById("location").innerHTML = "A solicitação para obter a localização expirou.";
+                break;
+            case error.UNKNOWN_ERROR:
+                document.getElementById("location").innerHTML = "Ocorreu um erro desconhecido.";
+                break;
+        }
+    }
+});
 </script>
 </body>
 
