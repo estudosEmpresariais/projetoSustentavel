@@ -253,11 +253,9 @@ def create_user(request):
 			try:
 				user = Usuario.objects.create(nome=usuario, senha=senha, tipo_usuario='E', username=usuario, password=senha, is_active=True, email=email, foto=foto)
 				endereco = Endereco.objects.create(logradouro=logradouro, bairro=bairro, numero=numero, cidade=cidade, usuario=user, longitude=longitude, latitude=latitude)
-
-				user.save()
-
 				empresa = Empreendedor.objects.create(razao_social=razao_social, email=email, nome_fantasia=nome_fantasia, cnpj=cnpj, inscricao_estadual=insc_estadual, usuario=user, tipo_pessoa='J', telefone=telefone, descricao_servicos=descricao_servicos)
 				empresa.save()
+				user.save()
 
 
 				#return redirect(url)

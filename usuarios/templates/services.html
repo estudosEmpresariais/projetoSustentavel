@@ -55,7 +55,7 @@
                         {% else %}
                         <img class="img-fluid" src="" width="220" height="158" style="display: block;border-style: none;">
                         {% endif %}
-                        <a class="btn btn-primary border rounded-0 d-xl-flex botao-no-canto" role="button" href="{% url 'usuarios:detail_empreendedor' empreendedor.usuario.pk empreendedor.pk %}">Ver detalhes</a></div>
+                        <a class="btn btn-primary border rounded-0 d-xl-flex botao-no-canto" role="button" href="{% url 'usuarios:detail_empreendedor' id empreendedor.pk %}">Ver detalhes</a></div>
                     <!-- <p class="mb-1">Varejista</p> -->
                     {% if empreendedor.telefone %}
                         <p class="mb-1">Telefone: {{empreendedor.telefone}}</p>
