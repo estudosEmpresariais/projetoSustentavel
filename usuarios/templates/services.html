@@ -7,24 +7,40 @@
 
 <body style="background: var(--bs-primary);">
     {% include "nav.html" %}
+
     <section class="d-xl-flex justify-content-xl-center py-5">
         <div class="container">
             <div class="border rounded d-sm-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-xl-center align-items-xl-center pb-lg-0 mb-lg-0 pe-lg-0 min-vh-25" style="height: 236px;background: #ffffff;">
                 <div class="row">
                     <div class="col-md-8 offset-md-2">
+                        {% if request.GET.mensagem != None %}
+                        {% if request.GET.status != 'error' %}
+                        <div class="alert alert-success" >
+                            {{ request.GET.mensagem }}
+                        </div>
+                        {% else %}
+                        <div class="alert alert-warning">
+                            {{ request.GET.mensagem }}
+                        </div> 
+                        {% endif %}
+                        {% endif %}
                         <h1 class="text-center" style="color: var(--bs-primary);">Descubra novos empreendedores locais com apenas um clique&nbsp;</h1>
                         <form method="get">
-                            <div class="input-group w-auto"><select class="form-select w-" style="background: var(--bs-primary);color: var(--bs-light-bg-subtle);">
+                            <div class="input-group w-auto">
+<!--                                 <select class="form-select w-" style="background: var(--bs-primary);color: var(--bs-light-bg-subtle);">
                                     <optgroup label="Categoria">
                                         <option value="12" selected="">Varejista</option>
                                         <option value="13">Farmaceutica</option>
                                         <option value="14">Papelaria</option>
                                     </optgroup>
-                                </select><input class="form-control" type="text" placeholder="Procurar por bairro" name="search_bairro"><button class="btn btn-primary" type="submit">Buscar</button></div>
+                                </select> -->
+                                <input class="form-control" type="text" placeholder="Procurar por bairro" name="search_bairro">
+                                <button class="btn btn-primary" type="submit">Buscar</button></div>
                         </form>
                     </div>
                 </div>
             </div>
+
             <div class="row" style="padding-top: 40px;">
                 {% for empreendedor in empreendedores %}
                 <div class="col-12 col-md-4">
@@ -32,16 +48,34 @@
                     <div>
                         <h6><b>{{empreendedor.razao_social | upper}}</b></h6>
                     </div>
-                    <div class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center justify-content-xl-center div-com-botao" style="background: #ffffff;height: 222px;"><img class="img-fluid" src="{% static 'assets/img/logo_assai.png' %}" width="220" height="158" style="display: block;border-style: none;"><a class="btn btn-primary border rounded-0 d-xl-flex botao-no-canto" role="button" href="{% url 'usuarios:detail_empreendedor' id %}">Ver detalhes</a></div>
-                    <p class="mb-1">Varejista</p>
-                    <p class="mb-1">(86) 9 3033-3030</p>
-                    {% if empreendedor.email %}
-                        <p class="mb-1">{{empreendedor.email}}</p>
+                   
+                    <div class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center justify-content-xl-center div-com-botao" style="background: #ffffff;height: 222px;">
+                        {% if empreendedor.usuario.foto and usuario.foto.url %}
+                            <img class="img-fluid" src="{{empreendedor.usuario.foto.url}}" width="220" height="158" style="display: block;border-style: none;">
+                        {% else %}
+                        <img class="img-fluid" src="" width="220" height="158" style="display: block;border-style: none;">
+                        {% endif %}
+                        <a class="btn btn-primary border rounded-0 d-xl-flex botao-no-canto" role="button" href="{% url 'usuarios:detail_empreendedor' id %}">Ver detalhes</a></div>
+                    <!-- <p class="mb-1">Varejista</p> -->
+                    {% if empreendedor.telefone %}
+                        <p class="mb-1">Telefone: {{empreendedor.telefone}}</p>
                     {% else %}
-                        <p class="mb-1">Não informado</p>
+                        <p class="mb-1">Telefone: Não informado</p>
                     {% endif %}
-                    <p class="mb-1">R. Gonçalo Nunes, 1000 - São Raimundo, Teresina - PI, 64075-080</p>
-                    <br>
+                    {% if empreendedor.email %}
+                        <p class="mb-1">Email: {{empreendedor.email}}</p>
+                    {% else %}
+                        <p class="mb-1">Email: Não informado</p>
+                    {% endif %}
+                    {% if empreendedor.usuario.enderecos %}
+                    
+                        {% for endereco in empreendedor.usuario.enderecos %}
+                            <p>Endereço: {{ endereco.logradouro }} - {{endereco.bairro}} - N° {{ endereco.numero }} - {{ endereco.cidade }} </p>
+                        {% endfor %}
+                    
+                    {% else %}
+                        <p>Sem endereços cadastrados.</p>
+                    {% endif %}
                 </div>
                 
                 {% endfor %}

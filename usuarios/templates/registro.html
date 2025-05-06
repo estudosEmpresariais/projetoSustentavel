@@ -59,13 +59,27 @@
                                     <p class="text-success">{{mensagem}}</p>
                                 {% endif %} -->
                                 <form method="post" action="{% url 'usuarios:create_user' %}"  enctype="multipart/form-data">
-                                
+                                    <label class="form-label" style="color: var(--bs-primary);" for="foto_empresa">Selecionar foto</label><input class="d-xl-flex visually-hidden" type="file" id="foto_empresa" name="foto">                    
                                 
                                 <div class="mb-3"><input class="form-control" type="text" placeholder="Nome Fantasia" name="nome_fantasia" style="border-radius: 16px;height: 46.7812px;padding: 9.6px 24px;min-width: 0;opacity: 1;border-width: 1px;border-color: var(--bs-dark-bg-subtle);"  required=""></div>
                                 <div class="mb-3"><input class="form-control" type="text" placeholder="Razão Social" name="razao_social" style="border-radius: 16px;height: 46.7812px;padding: 9.6px 24px;min-width: 0;opacity: 1;border-width: 1px;border-color: var(--bs-dark-bg-subtle);"  required></div>
-                                <div class="mb-3"><input class="form-control" type="text" placeholder="Endereço" name="endereco" style="border-radius: 16px;height: 46.7812px;padding: 9.6px 24px;min-width: 0;opacity: 1;border-width: 1px;border-color: var(--bs-dark-bg-subtle);"  required></div>
 <!--                                 <div class="mb-3"><input class="form-control" type="text" placeholder="Categoria" style="border-radius: 16px;height: 46.7812px;padding: 9.6px 24px;min-width: 0;opacity: 1;border-width: 1px;border-color: var(--bs-dark-bg-subtle);" name="categoria" required=""></div>
  -->                            <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="EMAIL"></div>
+                            <div class="mb-3"><input class="form-control" type="text" name="descricao_servicos" placeholder="Descrição Serviços"></div>
+                                <input class="form-control mb-3" type="text" name="logradouro" placeholder="Logradouro" >
+                                <input class="form-control mb-3" type="text" name="bairro" placeholder="Bairro" >
+                                <input class="form-control mb-3" type="number" name="numero" placeholder="Número">
+                                <select class="form-control" name="cidade" id="cidade">
+                                    <option value="">----</option>
+                                    {% for estado, cidades_estado in cidades.items %}
+                                        {% for city in cidades_estado %}
+                                            <option value="{{ city }}" {% if endereco.cidade == city %}selected{% endif %}>
+                                                {{ city }} - {{ estado }}
+                                            </option>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </select>
+                                <br>
                                 <div class="mb-3"><input class="form-control" type="number" name="cnpj"  placeholder="CPNJ"  oninput="limitarDigitos(this, 14)" required></div>
                                 <div class="mb-3"><input class="form-control" type="number" name="insc_estadual" placeholder="Inscrição Estadual"  oninput="limitarDigitos(this, 9)"></div>
                                 <div class="mb-3"><input class="form-control" type="username" name="usuario" placeholder="Nome de usuario" style="border-color: var(--bs-dark-bg-subtle);" required></div>

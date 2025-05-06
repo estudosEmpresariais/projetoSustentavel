@@ -6,45 +6,104 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Log in - EmpreendeX</title>
+    <title>Editar {{usuario.nome}} - EmpreendeX </title>
     <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
     <link rel="stylesheet" href="{% static 'assets/css/styles.min.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+
 </head>
 
 <body style="background: var(--bs-primary);">
+    
 {% include "nav.html" %}
+<div>
+    {% if request.GET.mensagem != None %}
+    {% if request.GET.status != 'error' %}
+    <div class="alert alert-success">
+        {{ request.GET.mensagem }}
+    </div>
+    {% else %}
+    <div class="alert alert-warning">
+        {{ request.GET.mensagem }}
+    </div> 
+    {% endif %}
+    {% endif %}
+</div>
     <section class="py-5">
+        
         <div class="container">
+
             <h2 class="text-center mb-4">Editar perfil</h2>
             <div class="col-md-8 offset-md-2 d-sm-flex d-md-flex d-lg-flex justify-content-sm-center justify-content-md-center justify-content-lg-center">
-                <form method="post">
+              {% if usuario.tipo_usuario == 'C' %}
+                <form method="post" enctype="multipart/form-data" action="{% url 'usuarios:editar_user' usuario.id %}">
                     <!--area cliente -->
+                    
                     <div id="form-cliente">
-                        <input class="form-control mb-3" type="text" placeholder="Nome" name="nome">
-                        <input class="form-control mb-3" type="text" placeholder="Username" name="username">
-                        <input class="form-control mb-3" type="password" placeholder="Senha" name="password">
-                        <input class="form-control mb-3" type="number" name="cpf" placeholder="CPF">
-                        <input class="form-control mb-3" type="text" name="endereco" placeholder="Endereço">
-                        <input class="form-control mb-3" type="email" name="email" placeholder="Email">
-                        <input class="form-control mb-3" type="text" name="data_nascimento" placeholder="Data de nascimento">
-                    </div>
-                    <!--area empreendedor -->
-                    <div class="d-none" id="form-empreendedor">
-                        <input class="form-control mb-3 me-xl-0" type="text" placeholder="Nome fantasia" name="nome_fantasia">
-                        <input class="form-control mb-3" type="text" placeholder="Razão social" name="razao_social">
-                        <input class="form-control mb-3" type="email" placeholder="Email" name="email">
-                        <input class="form-control mb-3" type="number" name="cnpj" placeholder="CNPJ">
-                        <input class="form-control mb-3" type="text" name="endereco" placeholder="Endereço">
-                        <input class="form-control mb-3" type="number" name="ins_estadual" placeholder="Inscrição estadual">
-                        <input class="form-control mb-3" type="text" name="username" placeholder="Nome do usuario">
-                        <input class="form-control mb-3" type="password" placeholder="Senha" name="password">
+    
+                        <input class="form-control mb-3" type="text" placeholder="Nome" name="pessoa" value="{{pessoa.nome}}">
+                        <input class="form-control mb-3" type="username" placeholder="Username" name="usuario" value="{{usuario.username}}">
+                        <input class="form-control mb-3" type="password" placeholder="Senha" name="senha" required maxlength="8" value="{{usuario.senha}}">
+                        <input class="form-control mb-3" type="number" name="cpf" placeholder="CPF" required value="{{pessoa.cpf}}">
+                        <input class="form-control mb-3" type="email" placeholder="Email" name="email" required value="{{pessoa.email}}">
+                        <input class="form-control mb-3" type="text" name="logradouro" placeholder="Logradouro" value="{{endereco.logradouro}}">
+                        <input class="form-control mb-3" type="text" name="bairro" placeholder="Bairro" value="{{endereco.bairro}}">
+                        <input class="form-control mb-3" type="number" name="numero" placeholder="Número" value="{{endereco.numero}}">
+                        
+                        <input class="form-control mb-3" type="text" name="complemento" placeholder="Complemento" value="{{endereco.complemento}}">
+                        <select class="form-control" name="cidade" id="cidade">
+                            <option value="">----</option>
+                            {% for estado, cidades_estado in cidades.items %}
+                                {% for city in cidades_estado %}
+                                    <option value="{{ city }}" {% if endereco.cidade == city %}selected{% endif %}>
+                                        {{ city }} - {{ estado }}
+                                    </option>
+                                {% endfor %}
+                            {% endfor %}
+                        </select>
+                        <br>
+                    <!--     <input class="form-control mb-3" type="text" name="cidade" placeholder="Endereço"> -->
+                        
+                        <input class="form-control mb-3" type="date" name="data_nascimento" placeholder="Data de nascimento" value="{{pessoa.data_nascimento |date:'Y-m-d' }}">
+                        <input class="form-control mb-3" type="tel" name="telefone" placeholder="telefone" value="{{pessoa.telefone}}">
                     </div>
                     <button class="btn btn-outline-light w-100 mt-4" type="submit">Fazer alterações</button>
+                    
                 </form>
+                {% else %}
+                <form method="post" enctype="multipart/form-data" action="{% url 'usuarios:editar_user' usuario.id %}">
+                    <div id="form-empreendedor">
+                    <input class="form-control mb-3 me-xl-0" type="text" placeholder="Nome fantasia" name="nome_fantasia" value="{{pessoa.nome_fantasia}}">
+                    <input class="form-control mb-3" type="text" placeholder="Razão social" name="razao_social" value="{{pessoa.razao_social}}">
+                    <input class="form-control mb-3" type="email" placeholder="Email" name="email" value="{{pessoa.email}}">
+                    <input class="form-control mb-3" type="number" name="cnpj" placeholder="CNPJ" value="{{pessoa.cnpj}}">
+                    <input class="form-control mb-3" type="text" name="logradouro" placeholder="Logradouro" value="{{endereco.logradouro}}">
+                    <input class="form-control mb-3" type="text" name="bairro" placeholder="Bairro" value="{{endereco.bairro}}">
+                    <input class="form-control mb-3" type="number" name="numero" placeholder="Número" value="{{endereco.numero}}">                    <input class="form-control mb-3" type="number" name="ins_estadual" placeholder="Inscrição estadual">
+                    <input class="form-control mb-3" type="text" name="usuario" placeholder="Nome do usuario" value="{{usuario.username}}">
+                    <input class="form-control mb-3" type="password" placeholder="Senha" name="senha" value="{{usuario.senha}}">
+                    <input class="form-control mb-3" type="tel" placeholder="telefone" name="telefone" value="{{pessoa.telefone}}">
+                    <input class="form-control mb-3" type="text" placeholder="Descrição Serviços" name="descricao_servicos" value="{{pessoa.descricao_servicos}}">
+                    <select class="form-control" name="cidade" id="cidade" value="{{endereco.cidade}}">
+                        <option value="">----</option>
+                        {% for estado, cidades_estado in cidades.items %}
+                            {% for city in cidades_estado %}
+                                <option value="{{ city }}" {% if endereco.cidade == city %}selected{% endif %}>
+                                    {{ city }} - {{ estado }}
+                                </option>
+                            {% endfor %}
+                        {% endfor %}
+                    </select>
+                    <br>
+                </div>
+                <button class="btn btn-outline-light w-100 mt-4" type="submit">Fazer alterações</button>
+            </form> 
+                {% endif %}
             </div>
         </div>
     </section>
+    
     <footer class="bg-dark">
         <div class="container py-4 py-lg-5">
             <div class="row justify-content-center">
@@ -92,5 +151,15 @@
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'assets/js/script.min.js' %}"></script>
 </body>
+{% block extra_js %}
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+<script>
+      $(document).ready(function() {
+    let params = new URLSearchParams(window.location.search)
+    $('#').select2();
+  });
+</script>
+{% endblock %}
 </html>
