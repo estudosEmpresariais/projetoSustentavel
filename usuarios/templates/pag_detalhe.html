@@ -19,14 +19,23 @@
             <h2 class="text-center mb-4 p-3 rounded" style="color: #3764f4; background-color: white;">Como chegar?&nbsp;</h2>
             <div class="row" style="background-color: white;">
                 <div class="col-12 col-md-7 px-0">
-                    <div id="map"><iframe allowfullscreen="" frameborder="0" loading="lazy" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAwcoaYTAoEneM5sxriMtwrKPI_fyA6WyM&amp;origin=Marseille%2C+France&amp;destination=Cannes%2C+France&amp;zoom=11" width="100%" height="400"></iframe></div>
+                    <div id="map">
+                        <iframe
+                          allowfullscreen=""
+                          frameborder="0"
+                          loading="lazy"
+                          width="100%"
+                          height="400"
+                          src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAwcoaYTAoEneM5sxriMtwrKPI_fyA6WyM&origin={{endereco.latitude}},{{endereco.longitude}}&destination={{endereco.latitude}},{{endereco.longitude}}&zoom=15">
+                        </iframe>
+                      </div>
                 </div>
                 <div class="col-12 col-md-5 sty rounded" style="padding-top: 25px;">
                     <div>
                         <h3 class="text-start mb-4" id="nome-empresa" style="color: #3764f4;"><b>Nome: </b>{{empreendedor.razao_social}}</h3>
                         <p id="categoria" style="color: #3764f4;"><b>Descrição Serviços:</b> {{empreendedor.descricao_servicos}}</p>
                         <p id="telefone" style="color: #3764f4;"><b>Telefone: </b>{{empreendedor.telefone}}</p>
-                        <p id="endereco" style="color: #3764f4;"><b>Endereço: </b>{{endereco.logradouro}} - {{endereco.bairro}} N° {{endereco.numero}} - {{endereco.cidade}}&nbsp;64077-265</p>
+                        <p id="endereco" style="color: #3764f4;"><b>Endereço: </b>{{endereco.logradouro}} - {{endereco.bairro}} N° {{endereco.numero}} - {{endereco.cidade}}&nbsp;</p>
                     </div>
                 </div>
             </div>

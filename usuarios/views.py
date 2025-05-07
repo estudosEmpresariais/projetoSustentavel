@@ -159,8 +159,13 @@ class detail_empreendedor(DetailView):
 	template_name = 'pag_detalhe.html'
 
 	def get_context_data(self, **kwargs):
-		try:
+		""" 		try:
 			endereco = Endereco.objects.get(usuario__id=self.kwargs['usuario_id']),
+		except Exception as e:
+			endereco = {} """
+		empreendedor = Empreendedor.objects.get(id=self.kwargs['pk'])
+		try:
+			endereco = Endereco.objects.get(usuario__id=empreendedor.usuario.id)
 		except Exception as e:
 			endereco = {}
         # Call the base implementation first to get a context
@@ -169,7 +174,7 @@ class detail_empreendedor(DetailView):
 		context = {
 			'usuario': Usuario.objects.get(id=self.kwargs['usuario_id']),
 			'endereco': endereco,
-			'empreendedor': Empreendedor.objects.get(id=self.kwargs['pk']),
+			'empreendedor': empreendedor,
 		}
 		return context
 
@@ -220,8 +225,6 @@ def create_user(request):
 	#dados = json.loads(request.body)
 	latitude = request.POST.get('latitude')
 	longitude = request.POST.get('longitude')
-	longitude = longitude.replace(".", "")
-	latitude = latitude.replace(".", "")
 	bairro = request.POST.get('bairro') if request.POST.get('bairro') else ''
 	logradouro = request.POST.get('logradouro') if request.POST.get('logradouro') else ''
 	telefone = request.POST.get('telefone') if request.POST.get('telefone') else ''
