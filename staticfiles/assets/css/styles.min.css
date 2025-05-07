@@ -1,1 +1,2 @@
 .btn-group .btn.active{background-color:var(--bs-gray-300)!important;border-color:var(--bs-white);color:var(--bs-primary)}.botao-no-canto{position:absolute;bottom:1px;right:1px;left:1px}.div-com-botao{position:relative;border:1px solid #ccc;padding:15px 15px 50px;margin-bottom:20px;object-fit:contain;overflow:hidden}#map{height:400px;width:100%}
+.dropdown-item:hover{background-color: #3764f4;}

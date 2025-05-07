@@ -61,45 +61,73 @@
                                 <form method="post" action="{% url 'usuarios:create_user' %}"  enctype="multipart/form-data">
                                     <label class="form-label" style="color: var(--bs-primary);" for="foto_empresa">Selecionar foto</label><input class="d-xl-flex visually-hidden" type="file" id="foto_empresa" name="foto">                    
                                     <div>
-                                        
-                                        
                                         <input type="hidden" name="latitude" id="latitude">
-                                    <input type="hidden" name="longitude" id="longitude">                               
-                                    <div class="mb-3"><input class="form-control" type="text" placeholder="Nome Fantasia" name="nome_fantasia" style="border-radius: 16px;height: 46.7812px;padding: 9.6px 24px;min-width: 0;opacity: 1;border-width: 1px;border-color: var(--bs-dark-bg-subtle);"  required=""></div>
-                                    <div class="mb-3">
-                                    <input class="form-control" type="text" placeholder="Razão Social" name="razao_social" style="border-radius: 16px;height: 46.7812px;padding: 9.6px 24px;min-width: 0;opacity: 1;border-width: 1px;border-color: var(--bs-dark-bg-subtle);"  required>7
+                                        <input type="hidden" name="longitude" id="longitude">
+                                    </div>                             
+                                    <div class="mb-3 text-start">
+                                        <label style="color: #000000;">Nome fantasia</label>
+                                        <input class="form-control" type="text" placeholder="Nome Fantasia" name="nome_fantasia" style="border-radius: 16px;height: 46.7812px;padding: 9.6px 24px;min-width: 0;opacity: 1;border-width: 1px;border-color: var(--bs-dark-bg-subtle);"  required="">
                                     </div>
-                                <div class="mb-3">
-                                    <input class="form-control" type="tel" placeholder="Telefone" name="telefone" style="border-radius: 16px;height: 46.7812px;padding: 9.6px 24px;min-width: 0;opacity: 1;border-width: 1px;border-color: var(--bs-dark-bg-subtle);" >
-                                </div>
-                                <div class="mb-3">
-                                    <input class="form-control" type="email" name="email" placeholder="EMAIL">
-                                </div>
-                                <div class="mb-3">
-                                    <input class="form-control" type="text" name="descricao_servicos" placeholder="Descrição Serviços">
-                                </div>
-                                <input class="form-control mb-3" type="text" name="logradouro" placeholder="Logradouro" >
-                                <input class="form-control mb-3" type="text" name="bairro" placeholder="Bairro" >
-                                <input class="form-control mb-3" type="number" name="numero" placeholder="Número">
-                                <select class="form-control" name="cidade" id="cidade">
-                                    <option value="">----</option>
-                                    {% for estado, cidades_estado in cidades.items %}
-                                        {% for city in cidades_estado %}
-                                            <option value="{{ city }}" {% if endereco.cidade == city %}selected{% endif %}>
-                                                {{ city }} - {{ estado }}
-                                            </option>
+                                    <div class="mb-3 text-start">
+                                        <label style="color: #000000;">Razão social</label>
+                                        <input class="form-control" type="text" placeholder="Razão Social" name="razao_social" style="border-radius: 16px;height: 46.7812px;padding: 9.6px 24px;min-width: 0;opacity: 1;border-width: 1px;border-color: var(--bs-dark-bg-subtle);"  required="">
+                                    </div>
+                                    <div class="mb-3 text-start">
+                                        <label style="color: #000000;">Telefone</label>
+                                        <input class="form-control" type="tel" placeholder="Telefone" name="telefone" style="border-radius: 16px;height: 46.7812px;padding: 9.6px 24px;min-width: 0;opacity: 1;border-width: 1px;border-color: var(--bs-dark-bg-subtle);" >
+                                    </div>
+                                    <div class="mb-3 text-start">
+                                        <label style="color: #000000;">E-mail</label>
+                                        <input class="form-control" type="email" name="email" placeholder="EMAIL">
+                                    </div>
+                                    <div class="mb-3 text-start">
+                                        <label style="color: #000000;">Descrição de serviços</label>
+                                        <input class="form-control" type="text" name="descricao_servicos" placeholder="Descrição Serviços">
+                                    </div>
+                                    <div class="mb-3 text-start">
+                                        <label style="color: #000000;">Logradouro</label>
+                                        <input class="form-control mb-3" type="text" name="logradouro" placeholder="Logradouro" >
+                                    </div>
+                                    <div class="mb-3 text-start">
+                                        <label style="color: #000000;">Bairro</label>
+                                        <input class="form-control mb-3" type="text" name="bairro" placeholder="Bairro" >
+                                    </div>
+                                    <div class="mb-3 text-start">
+                                        <label style="color: #000000;">Número</label>
+                                        <input class="form-control mb-3" type="number" name="numero" placeholder="Número">
+                                    </div>
+                                    <div class="mb-3 text-start">
+                                        <label style="color: #000000;">Estado</label>
+                                        <select class="form-control" name="cidade" id="cidade">
+                                        <option value="">----</option>
+                                        {% for estado, cidades_estado in cidades.items %}
+                                            {% for city in cidades_estado %}
+                                                <option value="{{ city }}" {% if endereco.cidade == city %}selected{% endif %}>
+                                                    {{ city }} - {{ estado }}
+                                                </option>
+                                            {% endfor %}
                                         {% endfor %}
-                                    {% endfor %}
-                                </select>
-                                <br>
-                                <div class="mb-3"><input class="form-control" type="number" name="cnpj"  placeholder="CPNJ"  oninput="limitarDigitos(this, 14)" required></div>
-                                <div class="mb-3"><input class="form-control" type="number" name="insc_estadual" placeholder="Inscrição Estadual"  oninput="limitarDigitos(this, 9)"></div>
-                                <div class="mb-3"><input class="form-control" type="username" name="usuario" placeholder="Nome de usuario" style="border-color: var(--bs-dark-bg-subtle);" required></div>
-                                <div class="mb-3"><input class="form-control" type="password" name="senha" placeholder="Senha" maxlength="8" minlength="8" style="border-color: var(--bs-dark-bg-subtle);" required></div>
-                                <div class="mb-3"><button class="btn btn-primary shadow d-block w-100" type="submit"  >Cadastrar</button></div>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3 text-start">
+                                        <label style="color: #000000;">CNPJ</label>
+                                        <input class="form-control" type="number" name="cnpj"  placeholder="CPNJ"  oninput="limitarDigitos(this, 14)" required>
+                                    </div>
+                                    <div class="mb-3 text-start">
+                                        <label style="color: #000000;">Inscrição estadual</label>
+                                        <input class="form-control" type="number" name="insc_estadual" placeholder="Inscrição Estadual"  oninput="limitarDigitos(this, 9)">
+                                    </div>
+                                    <div class="mb-3 text-start">
+                                        <label style="color: #000000;">Nome de usuario</label>
+                                        <input class="form-control" type="username" name="usuario" placeholder="Nome de usuario" style="border-color: var(--bs-dark-bg-subtle);" required>
+                                    </div>
+                                    <div class="mb-3 text-start">
+                                        <label style="color: #000000;">Senha</label>
+                                        <input class="form-control" type="password" name="senha" placeholder="Senha" maxlength="8" minlength="8" style="border-color: var(--bs-dark-bg-subtle);" required>
+                                    </div>
+                                    <div class="mb-3"><button class="btn btn-primary shadow d-block w-100" type="submit">Cadastrar</button></div>
                             </form>
                         </div>
-                    </div>
                     </div>
                     
                     <div class="card" id="registro-cliente" style="display: block;">
@@ -121,13 +149,33 @@
                                 <input type="hidden" name="longitude" id="longitude">
                                 <label class="form-label" style="color: var(--bs-primary);" for="foto_empresa">Selecionar foto</label>
                                 <input class="d-xl-flex visually-hidden" type="file" id="foto_empresa" name="foto">              
-                                <div class="mb-3"><input class="form-control" type="text" name="nome" placeholder="Nome" required></div>
-                                <div class="mb-3"><input class="form-control" type="username" name="usuario" placeholder="usuário" required></div>
-                                <div class="mb-3"><input class="form-control" type="password" name="senha" placeholder="senha" maxlength="8" minlength="8" required></div>
-                                <div class="mb-3"><input class="form-control" type="number" name="cpf" placeholder="CPF" oninput="limitarDigitos(this, 11)" required></div>
-                                <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="email"></div>
-                                <div class="mb-3"><input class="form-control" type="date" name="data_nascimento" placeholder="Data de Nascimento" required></div>
-                                <div class="mb-3"><button class="btn btn-primary shadow d-block w-100" type="submit">Cadastrar</button></div>
+                                <div class="mb-3 text-start">
+                                    <label">Nome</label>
+                                    <input class="form-control" type="text" name="nome" placeholder="Nome" required>
+                                </div>
+                                <div class="mb-3 text-start">
+                                    <label">Usuário</label>
+                                    <input class="form-control" type="username" name="usuario" placeholder="usuário" required>
+                                </div>
+                                <div class="mb-3 text-start">
+                                    <label">Senha</label>
+                                    <input class="form-control" type="password" name="senha" placeholder="senha" maxlength="8" minlength="8" required>
+                                </div>
+                                <div class="mb-3 text-start">
+                                    <label">CPF</label>
+                                    <input class="form-control" type="number" name="cpf" placeholder="CPF" oninput="limitarDigitos(this, 11)" required>
+                                </div>
+                                <div class="mb-3 text-start">
+                                    <label">Email</label>
+                                    <input class="form-control" type="email" name="email" placeholder="email">
+                                </div>
+                                <div class="mb-3 text-start">
+                                    <label">Data de nascimento</label>
+                                    <input class="form-control" type="date" name="data_nascimento" placeholder="Data de Nascimento" required>
+                                </div>
+                                <div class="mb-3">
+                                    <button class="btn btn-primary shadow d-block w-100" type="submit">Cadastrar</button>
+                                </div>
                             </form>
                         </div>
                     </div>
